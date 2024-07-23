@@ -1,6 +1,7 @@
 package com.example.FinalExamProject.Product;
 
 import com.example.FinalExamProject.Command;
+import com.example.FinalExamProject.Exception.ProductNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class DeleteProductCommandHandler implements Command<String,Void> {
         // see if the product is present
         if(product.isEmpty())
         {
-            //TODO
+            throw new ProductNotFoundException();
 
 
         }
