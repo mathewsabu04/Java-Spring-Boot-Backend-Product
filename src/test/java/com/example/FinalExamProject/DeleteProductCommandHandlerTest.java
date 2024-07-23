@@ -1,7 +1,5 @@
 package com.example.FinalExamProject;
 
-import com.example.FinalExamProject.Category.CategoryRepository;
-import com.example.FinalExamProject.Category.GetCategoryQueryHandler;
 import com.example.FinalExamProject.Product.DeleteProductCommandHandler;
 import com.example.FinalExamProject.Product.Product;
 import com.example.FinalExamProject.Product.ProductRepository;
@@ -19,7 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = FinalExamProjectApplication.class)
-public class DeleteCategoryQueryHandlerTest {
+public class DeleteProductCommandHandlerTest {
     @Mock
     private ProductRepository productRepository;
 
