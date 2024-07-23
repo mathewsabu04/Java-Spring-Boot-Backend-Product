@@ -28,6 +28,7 @@ public class DeleteProductCommandHandler implements Command<String,Void> {
 
         }
         productRepository.delete(product.get());
+        System.out.println("Product has been deleted");
         return ResponseEntity.ok().build();
 
     }

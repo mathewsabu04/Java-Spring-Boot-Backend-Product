@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -53,6 +54,12 @@ public class DeleteProductCommandHandlerTest {
 
     @Test
     public void deleteProductCommandHandler_throwsProductNotFoundException(){
+        String id = "1"; // create a product with id of 1
+        Product product = new Product();
+        product.setId(id);
+        when(productRepository.findById(id)).thenReturn(Optional.empty());
+        ProductNotFoundException exception = assertThrows(ProductNotFoundException.class, () -> deleteProductCommandHandler.excutes(id));
+        assertEquals("Product not found", exception.getSimpleResponse().getMessage());
 
     }
 }

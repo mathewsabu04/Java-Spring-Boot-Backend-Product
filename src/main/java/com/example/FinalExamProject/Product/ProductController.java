@@ -27,6 +27,7 @@ public class ProductController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
         return deleteProductCommandHandler.excutes(id);
+
     }
 
 }
