@@ -2,12 +2,11 @@ package com.example.FinalExamProject;
 
 import com.example.FinalExamProject.Category.Category;
 import com.example.FinalExamProject.Category.CategoryRepository;
-import com.example.FinalExamProject.Category.GetCategoryQueryHandler;
+import com.example.FinalExamProject.QueryHandler.GetCategoryQueryHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 
@@ -24,6 +23,7 @@ public class GetCategoryQueryHandlerTest {
     @Mock
     private CategoryRepository categoryRepository;
 
+    @InjectMocks
     private GetCategoryQueryHandler getCategoryQueryHandler;
 
     @BeforeEach

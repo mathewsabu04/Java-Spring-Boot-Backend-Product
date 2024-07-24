@@ -1,7 +1,7 @@
 package com.example.FinalExamProject;
 
 import com.example.FinalExamProject.Exception.ProductNotFoundException;
-import com.example.FinalExamProject.Product.DeleteProductCommandHandler;
+import com.example.FinalExamProject.CommandHandler.DeleteProductCommandHandler;
 import com.example.FinalExamProject.Product.Product;
 import com.example.FinalExamProject.Product.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;

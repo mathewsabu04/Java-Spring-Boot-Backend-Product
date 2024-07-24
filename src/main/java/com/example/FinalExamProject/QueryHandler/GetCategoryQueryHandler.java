@@ -1,10 +1,10 @@
-package com.example.FinalExamProject.Category;
+package com.example.FinalExamProject.QueryHandler;
 
+import com.example.FinalExamProject.Category.Category;
+import com.example.FinalExamProject.Category.CategoryRepository;
 import com.example.FinalExamProject.Query;
-import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

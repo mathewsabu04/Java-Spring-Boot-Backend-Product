@@ -1,8 +1,11 @@
-package com.example.FinalExamProject.Product;
+package com.example.FinalExamProject.CommandHandler;
 
 import com.example.FinalExamProject.Command;
 import com.example.FinalExamProject.Exception.ProductNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.FinalExamProject.Product.Product;
+import com.example.FinalExamProject.Product.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ public class DeleteProductCommandHandler implements Command<String,Void> {
 
 
     public ProductRepository productRepository;
+    private Logger logger = LoggerFactory.getLogger(DeleteProductCommandHandler.class);
 
     public DeleteProductCommandHandler(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -20,6 +24,8 @@ public class DeleteProductCommandHandler implements Command<String,Void> {
 
     @Override
     public ResponseEntity<Void> excutes(String id) {
+        logger.info("Delete Product Command Handler, id: " + id + " " + getClass().getSimpleName());
+
         Optional<Product> product = productRepository.findById(id);
         // see if the product is present
         if(product.isEmpty())
