@@ -32,21 +32,31 @@ public class ProductController {
         return ResponseEntity.ok(productRepository.findAll());
     }
 
+    // Annotates the method as a GET HTTP request handler for the "/search" URL
     @GetMapping("/search")
     public ResponseEntity<List<ProductDTO>> searchProductDTOs(
+            // Retrieves the value of the "region" header; defaults to "US" if not provided
             @RequestHeader(value = "region", defaultValue = "US") String region,
+            // Retrieves the value of the "category" query parameter; optional
             @RequestParam(required = false) String category,
+            // Retrieves the value of the "nameOrDescription" query parameter; optional
             @RequestParam(required = false) String nameOrDescription,
+            // Retrieves the value of the "orderBy" query parameter; optional
             @RequestParam(required = false) String orderBy
     ) {
-
+        // Calls the getProductDTOQueryHandler to execute a query with the provided parameters
         return getProductDTOQueryHandler.executes(new GetProductsDTOQuery(
+                // Converts the region string to a Region enum value
                 Region.valueOf(region),
+                // Uses the provided category
                 category,
+                // Uses the provided name or description
                 nameOrDescription,
+                // Converts the orderBy string to a ProductSortBy enum value
                 ProductSortBy.fromValue(orderBy)
         ));
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable String id)

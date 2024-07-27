@@ -22,9 +22,9 @@ public class GetProductDTOQueryHandler implements Query<GetProductsDTOQuery, Lis
 
     @Override
     public ResponseEntity<List<ProductDTO>> executes(GetProductsDTOQuery query) {
-        final Logger logger = LoggerFactory.getLogger(GetProductDTOQueryHandler.class);
+        final Logger logger = LoggerFactory.getLogger(GetProductDTOQueryHandler.class); // logger
 
-        Sort productSort = defineSort(query.getProductSortBy());
+        Sort productSort = defineSort(query.getProductSortBy()); // sort the products
 
         List<Product> products = productRepository
                 .findByNameOrDescriptionAndRegionAndCategory(
