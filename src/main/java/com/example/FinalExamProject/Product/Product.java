@@ -13,10 +13,9 @@ import java.time.LocalDateTime;
 @Table(name = "product")
 @Data
 public class Product {
-
     @Id
-    @GeneratedValue (generator = "UUID")
-    @GenericGenerator(name="UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
     @Column(name = "name")
@@ -31,7 +30,7 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    //category
+    // Category relationship
     @ManyToOne
     @JoinColumn(name = "category_value", referencedColumnName = "value")
     private Category category;
@@ -45,4 +44,16 @@ public class Product {
 
     @UpdateTimestamp
     private LocalDateTime updateAt;
+
+    // Getter for category
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getName()
+    {
+        return  name;
+    }
+
+    // Other getters and setters
 }
