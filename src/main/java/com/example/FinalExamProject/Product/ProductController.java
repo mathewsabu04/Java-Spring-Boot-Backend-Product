@@ -2,6 +2,8 @@ package com.example.FinalExamProject.Product;
 
 import com.example.FinalExamProject.CommandHandler.CreateProductCommandHandler;
 import com.example.FinalExamProject.CommandHandler.DeleteProductCommandHandler;
+import com.example.FinalExamProject.CommandHandler.UpdateProductCommand;
+import com.example.FinalExamProject.CommandHandler.UpdateProductCommandHandler;
 import com.example.FinalExamProject.QueryHandler.GetProductByIdQueryHandler;
 import com.example.FinalExamProject.QueryHandler.GetProductDTOQueryHandler;
 import com.example.FinalExamProject.QueryHandler.GetProductsDTOQuery;
@@ -31,9 +33,13 @@ public class ProductController {
     @Autowired
     private CreateProductCommandHandler createProductCommandHandler;
 
+    @Autowired
+    private UpdateProductCommandHandler updateProductCommandHandler;
+
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(productRepository.findAll());
+
     }
 
     // Annotates the method as a GET HTTP request handler for the "/search" URL
@@ -83,8 +89,8 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductRequest productRequest)
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable String id, @RequestBody ProductRequest productRequest)
     {
-        return  null;
+        return  updateProductCommandHandler.executes(new UpdateProductCommand(id,productRequest));
     }
 }
