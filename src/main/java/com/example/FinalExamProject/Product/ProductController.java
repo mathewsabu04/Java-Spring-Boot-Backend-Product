@@ -1,11 +1,12 @@
 package com.example.FinalExamProject.Product;
 
-import com.example.FinalExamProject.Category.Category;
+import com.example.FinalExamProject.CommandHandler.CreateProductCommandHandler;
 import com.example.FinalExamProject.CommandHandler.DeleteProductCommandHandler;
 import com.example.FinalExamProject.QueryHandler.GetProductByIdQueryHandler;
 import com.example.FinalExamProject.QueryHandler.GetProductDTOQueryHandler;
 import com.example.FinalExamProject.QueryHandler.GetProductsDTOQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
+@Cacheable("products")
 public class ProductController {
 
     @Autowired
@@ -26,6 +28,8 @@ public class ProductController {
 
     @Autowired
     private GetProductDTOQueryHandler getProductDTOQueryHandler;
+    @Autowired
+    private CreateProductCommandHandler createProductCommandHandler;
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProducts() {
@@ -66,6 +70,21 @@ public class ProductController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
-        return deleteProductCommandHandler.excutes(id);
+        return deleteProductCommandHandler.executes(id);
+    }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductRequest request)
+    {
+        return createProductCommandHandler.executes(request);
+
+
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductRequest productRequest)
+    {
+        return  null;
     }
 }

@@ -43,7 +43,7 @@ public class DeleteProductCommandHandlerTest {
 
         //when we find the product by id, we want to return an optional of the product
         when(productRepository.findById(id)).thenReturn(Optional.of(product));
-        ResponseEntity responseEntity = deleteProductCommandHandler.excutes(id);
+        ResponseEntity responseEntity = deleteProductCommandHandler.executes(id);
         verify(productRepository).delete(product);
         assertEquals(responseEntity.getStatusCode(),HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class DeleteProductCommandHandlerTest {
         Product product = new Product();
         product.setId(id);
         when(productRepository.findById(id)).thenReturn(Optional.empty());
-        ProductNotFoundException exception = assertThrows(ProductNotFoundException.class, () -> deleteProductCommandHandler.excutes(id));
+        ProductNotFoundException exception = assertThrows(ProductNotFoundException.class, () -> deleteProductCommandHandler.executes(id));
         assertEquals("Product not found", exception.getSimpleResponse().getMessage());
 
     }

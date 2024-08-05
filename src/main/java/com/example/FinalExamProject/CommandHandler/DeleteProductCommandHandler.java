@@ -23,7 +23,7 @@ public class DeleteProductCommandHandler implements Command<String,Void> {
     }
 
     @Override
-    public ResponseEntity<Void> excutes(String id) {
+    public ResponseEntity<Void>executes(String id) {
         logger.info("Delete Product Command Handler, id: " + id + " " + getClass().getSimpleName());
 
         Optional<Product> product = productRepository.findById(id);

@@ -20,6 +20,10 @@ public class GetProductDTOQueryHandler implements Query<GetProductsDTOQuery, Lis
     @Autowired
     private ProductRepository productRepository;
 
+    public GetProductDTOQueryHandler(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     @Override
     public ResponseEntity<List<ProductDTO>> executes(GetProductsDTOQuery query) {
         final Logger logger = LoggerFactory.getLogger(GetProductDTOQueryHandler.class); // logger
@@ -39,7 +43,7 @@ public class GetProductDTOQueryHandler implements Query<GetProductsDTOQuery, Lis
         return ResponseEntity.ok(products.stream().map(ProductDTO::new).collect(Collectors.toList()));
     }
 
-    private Sort defineSort(ProductSortBy productSortBy) {
+    public Sort defineSort(ProductSortBy productSortBy) {
         if (productSortBy == null) {
             return Sort.unsorted();
         }
