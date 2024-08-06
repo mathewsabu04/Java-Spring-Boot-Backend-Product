@@ -2,6 +2,7 @@ package com.example.FinalExamProject.CommandHandler;
 
 import com.example.FinalExamProject.Category.CategoryRepository;
 import com.example.FinalExamProject.Command;
+import com.example.FinalExamProject.Exception.ProfanityValidator;
 import com.example.FinalExamProject.Product.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,13 @@ public class CreateProductCommandHandler implements Command<ProductRequest, Prod
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private final ProductValidator productValidator;
+
+    public CreateProductCommandHandler(ProductValidator productValidator) {
+        this.productValidator = productValidator;
+    }
+
 
     @Override
     public ResponseEntity<ProductDTO> executes(ProductRequest productRequest)
@@ -25,7 +33,7 @@ public class CreateProductCommandHandler implements Command<ProductRequest, Prod
 
         logger.info("Creating Product Command Handler " + productRequest + " " + getClass().getSimpleName() );
         // Product Validator
-       Product validatedProduct =  ProductValidator.executes(productRequest,categoryRepository.findAll());
+       Product validatedProduct =  productValidator.executes(productRequest,categoryRepository.findAll());
 
 
         productRepository.save(validatedProduct);

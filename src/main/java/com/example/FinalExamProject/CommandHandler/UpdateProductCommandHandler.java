@@ -18,7 +18,13 @@ public class UpdateProductCommandHandler implements Command<UpdateProductCommand
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
-    @Override
+
+    private final ProductValidator productValidator;
+
+    public UpdateProductCommandHandler(ProductValidator productValidator) {
+        this.productValidator = productValidator;
+    }
+
     public ResponseEntity<ProductDTO> executes(UpdateProductCommand command) {
         //find the product by id
         Optional<Product> product = productRepository.findById(command.getId());
@@ -27,7 +33,7 @@ public class UpdateProductCommandHandler implements Command<UpdateProductCommand
         }
         else{
             //check if it's valid
-            Product validatedProduct = ProductValidator.executes(command.getProductRequest(), categoryRepository.findAll());
+            Product validatedProduct = productValidator.executes(command.getProductRequest(), categoryRepository.findAll());
             validatedProduct.setId(product.get().getId());
             validatedProduct.setCreatedAt(product.get().getCreatedAt());
             productRepository.save(validatedProduct);

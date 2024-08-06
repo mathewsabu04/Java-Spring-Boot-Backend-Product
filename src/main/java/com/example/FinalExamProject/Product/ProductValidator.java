@@ -7,11 +7,18 @@ import com.example.FinalExamProject.Exception.ProfanityValidator;
 import com.example.FinalExamProject.Exception.SimpleResponse;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class ProductValidator {
-    public static  Product executes(ProductRequest request , List<Category> categoryList)
+    private final ProfanityValidator profanityValidator;
+
+    public ProductValidator(ProfanityValidator profanityValidator) {
+        this.profanityValidator = profanityValidator;
+    }
+
+    public Product executes(ProductRequest request , List<Category> categoryList)
     {
         // have a bunch of if statements -> each one will call a method to check each attribute.
         if (nameIsEmpty(request.getName()))
@@ -34,7 +41,7 @@ public class ProductValidator {
             throw new InvalidProductException(new SimpleResponse(ErrorMessage.PRODUCT_REGION_IS_NOT_AVAILABLE.getMessage()),request);
         }
         // Profanity Validator check -> external api integration
-        if(ProfanityValidator.hasProfanity(request.getName(),request.getDescription()))
+        if(profanityValidator.hasProfanity(request.getName(),request.getDescription()))
         {
             throw new InvalidProductException(new SimpleResponse(ErrorMessage.PRODUCT_HAS_PROFANITY.getMessage()),request);
         }
