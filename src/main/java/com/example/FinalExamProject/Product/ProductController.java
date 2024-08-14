@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+
 @Cacheable("products")
 public class ProductController {
 
@@ -36,14 +36,14 @@ public class ProductController {
     @Autowired
     private UpdateProductCommandHandler updateProductCommandHandler;
 
-    @GetMapping("/all")
+    @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         return ResponseEntity.ok(productRepository.findAll());
 
     }
 
     // Annotates the method as a GET HTTP request handler for the "/search" URL
-    @GetMapping("/search")
+    @GetMapping("/products/search")
     public ResponseEntity<List<ProductDTO>> searchProductDTOs(
             // Retrieves the value of the "region" header; defaults to "US" if not provided
             @RequestHeader(value = "region", defaultValue = "US") String region,

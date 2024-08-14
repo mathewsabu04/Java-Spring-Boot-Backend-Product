@@ -1,5 +1,6 @@
 package com.example.FinalExamProject.QueryHandler;
 
+import com.example.FinalExamProject.Exception.ProductNotFoundException;
 import com.example.FinalExamProject.Product.Product;
 import com.example.FinalExamProject.Product.ProductDTO;
 import com.example.FinalExamProject.Product.ProductRepository;
@@ -38,6 +39,10 @@ public class GetProductDTOQueryHandler implements Query<GetProductsDTOQuery, Lis
                         productSort
 
                 );
+
+//        if (products.isEmpty()){
+//            throw new ProductNotFoundException();
+//        }
         products.forEach(product -> logger.info("Get name: " + product.getName()));
 
         return ResponseEntity.ok(products.stream().map(ProductDTO::new).collect(Collectors.toList()));
